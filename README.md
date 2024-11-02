@@ -1,35 +1,60 @@
-# vue-tree
+# Vue Tree Project
 
-This template should help get you started developing with Vue 3 in Vite.
+This project is a Vue.js application that visualizes a tree structure with nodes. Each node can have child nodes, and the tree can be expanded or collapsed.
 
-## Recommended IDE Setup
+## Table of Contents
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+- [Installation](#installation)
+- [Usage](#usage)
+- [Project Structure](#project-structure)
 
-## Customize configuration
+## Installation
 
-See [Vite Configuration Reference](https://vite.dev/config/).
-
-## Project Setup
-
-```sh
-pnpm install
-```
-
-### Compile and Hot-Reload for Development
+To install the project dependencies, run:
 
 ```sh
-pnpm dev
+npm install
 ```
 
-### Compile and Minify for Production
+## Usage
+
+To start the development server, run:
 
 ```sh
-pnpm build
+npm run dev
 ```
 
-### Lint with [ESLint](https://eslint.org/)
+To build the project for production, run:
 
 ```sh
-pnpm lint
+npm run build
 ```
+
+To preview the production build, run:
+
+```sh
+npm run preview
+```
+
+To lint the project files and automatically fix issues, run:
+
+```sh
+npm run lint
+```
+
+To format the project files using Prettier, run:
+
+```sh
+npm run format
+```
+
+## Project Structure
+
+- `src/`: Contains the source code for the project.
+    - `assets/`: Contains static assets like images.
+    - `components/`: Contains Vue components.
+    - `views/`: Contains Vue views.
+- `public/`: Contains the public assets and the `index.html` file.
+- `package.json`: Contains the project dependencies and scripts.
+- `tailwind.config.js`: Tailwind CSS configuration file.
+- `vite.config.js`: Vite configuration file.

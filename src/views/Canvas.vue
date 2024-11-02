@@ -40,10 +40,34 @@ const nodes = ref([
             {
                 id: 22,
                 label: "Node name 22",
+                description: "lalalala lalalala lalalala lalalala lalalala lalalala lalalala lalalala lalalala lalalala lalalala ",
                 childs: [
                     {
                         id: 3,
                         label: "Node name 3a",
+                        childs: []
+                    }
+                ]
+            },
+            {
+                id: 2323,
+                label: "Node name 23 Node name 23 Node name 23 Node name 23 Node name 23 Node name 23 Node name 23 Node name 23 Node name 23 Node name 23 Node name 23 Node name 23 Node name 23 ",
+                "description": "Node name 23 Node name 23 Node name 23 Node name 23 Node name 23 Node name 23 Node name 23 Node name 23 Node name 23 Node name 23 Node name 23 Node name 23 Node name 23 Node name 23 Node name 23 Node name 23 Node name 23 Node name 23 Node name 23 Node name 23 Node name 23 Node name 23 Node name 23 Node name 23 Node name 23 Node name 23 Node name 23 Node name 23 Node name 23 Node name 23 Node name 23 ",
+                childs: [
+                    {
+                        id: 3,
+                        label: "Node name 3f",
+                        childs: []
+                    }
+                ]
+            },
+            {
+                id: 233,
+                label: "Node name 23",
+                childs: [
+                    {
+                        id: 3,
+                        label: "Node name 3f",
                         childs: []
                     }
                 ]
