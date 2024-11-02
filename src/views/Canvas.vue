@@ -4,7 +4,7 @@
     </section>
 </template>
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref } from 'vue'
 import Node from '../components/Node.vue'
 
 const nodes = ref([
@@ -12,15 +12,15 @@ const nodes = ref([
         id: 1,
         label: "Node name 1",
         description: "Node description 1",
-        childs: [
+        children: [
             {
                 id: 2,
                 label: "Node name 2",
-                childs: [
+                children: [
                     {
                         id: 3,
                         label: "Node name 3",
-                        childs: []
+                        children: []
                     }
                 ]
             }
@@ -30,22 +30,22 @@ const nodes = ref([
         id: 4,
         label: "Node name 4",
         description: "Node description 4",
-        childs: []
+        children: []
     },
     {
         id: 5,
         label: "Node name 5",
         description: "Node description 5",
-        childs: [
+        children: [
             {
                 id: 22,
                 label: "Node name 22",
                 description: "lalalala lalalala lalalala lalalala lalalala lalalala lalalala lalalala lalalala lalalala lalalala ",
-                childs: [
+                children: [
                     {
                         id: 3,
                         label: "Node name 3a",
-                        childs: []
+                        children: []
                     }
                 ]
             },
@@ -53,33 +53,33 @@ const nodes = ref([
                 id: 2323,
                 label: "Node name 23 Node name 23 Node name 23 Node name 23 Node name 23 Node name 23 Node name 23 Node name 23 Node name 23 Node name 23 Node name 23 Node name 23 Node name 23 ",
                 "description": "Node name 23 Node name 23 Node name 23 Node name 23 Node name 23 Node name 23 Node name 23 Node name 23 Node name 23 Node name 23 Node name 23 Node name 23 Node name 23 Node name 23 Node name 23 Node name 23 Node name 23 Node name 23 Node name 23 Node name 23 Node name 23 Node name 23 Node name 23 Node name 23 Node name 23 Node name 23 Node name 23 Node name 23 Node name 23 Node name 23 Node name 23 ",
-                childs: [
+                children: [
                     {
                         id: 3,
                         label: "Node name 3f",
-                        childs: []
+                        children: []
                     }
                 ]
             },
             {
                 id: 233,
                 label: "Node name 23",
-                childs: [
+                children: [
                     {
                         id: 3,
                         label: "Node name 3f",
-                        childs: []
+                        children: []
                     }
                 ]
             },
             {
                 id: 23,
                 label: "Node name 23",
-                childs: [
+                children: [
                     {
                         id: 3,
                         label: "Node name 3f",
-                        childs: []
+                        children: []
                     }
                 ]
             }
@@ -89,7 +89,7 @@ const nodes = ref([
         id: 6,
         label: "Node name 6",
         description: "Node description 6",
-        childs: []
+        children: []
     }
 ])
 
