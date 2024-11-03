@@ -1,6 +1,6 @@
 <template>
     <div class="flex flex-row">
-        <div class="text-white flex flex-row w-[300px] pb-2">
+        <div class="text-white flex flex-row w-[300px] min-w-[300px] pb-2">
             <div class="current-node flex  flex-grow flex-row align-start" :class="{'with-children': node.children?.length > 0}">
                 <figure class="min-w-[11px] min-h-[24px]">
                     <img class="mt-[7px]" src="@/assets/img/arrow.webp" alt="" />
@@ -15,6 +15,7 @@
                             v-model="node.label"
                             v-show="enableLabelTextarea"
                             @keyup.enter="handleEnter"
+                            @keydown.tab.prevent="handleTab"
                             @keyup="$emit('updateTextarea')"
                             class="v-textarea bg-gray-800 border border-t-4 border-gray-400 p-1 resize-none ring-0 focus:ring-0 focus:ring-offset-0 focus:outline-none"></textarea>
                     </div>
@@ -111,8 +112,6 @@ watch(childrenVisibles, (newVal) => {
 
 const calculatechildrenHeights = () => {
 
-
-
     setTimeout(() => {
 
         childrenHeigth.value = 0
@@ -165,6 +164,28 @@ const handleEnter = () => {
     enableDescriptionTextarea.value = false
     $emit('updateTextarea')
     $emit('goNext', node.value.id)
+}
+
+const handleTab = () => {
+
+    enableLabelTextarea.value = false
+    enableDescriptionTextarea.value = false
+    $emit('updateTextarea')
+
+    console.log(node.value.children.length)
+
+    if(node.value.children.length > 0){
+        nextTick(() => {
+            children.value[0].focusLabelTextarea()
+        })
+    }
+    else{
+        node.value.children.push(createChild())
+        nextTick(() => {
+            children.value[children.value.length - 1].focusLabelTextarea()
+        })
+    }
+
 }
 
 const handleGoNext = (nodeId) => {
