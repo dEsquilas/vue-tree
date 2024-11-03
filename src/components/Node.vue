@@ -173,8 +173,6 @@ const handleTab = () => {
     enableDescriptionTextarea.value = false
     $emit('updateTextarea')
 
-    console.log(node.value.children.length)
-
     if(node.value.children.length > 0){
         nextTick(() => {
             children.value[0].focusLabelTextarea()
@@ -219,8 +217,6 @@ const findNextNode = (nodeId) => {
             return child
         }
     })
-
-    console.log(currentIndex, node.value.children.length)
 
     return node.value.children.length > currentIndex + 1 ? node.value.children[currentIndex + 1].id : null
 
