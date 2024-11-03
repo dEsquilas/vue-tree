@@ -181,7 +181,6 @@ const handleGoNext = (nodeId) => {
             }
         })
     } else {
-
         const newChild = createChild();
         node.value.children.push(newChild);
         nextTick(() => {
@@ -199,20 +198,20 @@ const findNextNode = (nodeId) => {
         }
     })
 
-    return node.value.children.length < currentIndex ? node.value.children[currentIndex + 1].id : null
+    console.log(currentIndex, node.value.children.length)
+
+    return node.value.children.length > currentIndex + 1 ? node.value.children[currentIndex + 1].id : null
 
 }
 
 const createChild = () => {
 
-    const newChild = {
+    return {
         id: uuidv4(),
         label: "",
         description: "",
         children: []
     }
-
-    return newChild
 }
 
 defineExpose({
