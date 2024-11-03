@@ -6,9 +6,14 @@
                     <img class="mt-[7px]" src="@/assets/img/arrow.webp" alt="" />
                 </figure>
                 <div class="node-content block">
-                    <div class="px-4 name block">
-                        <span v-show="!enableLabelTextarea" class="bg-gray-800" v-on:dblclick="focusLabelTextarea">
-                            {{ node.label }}
+                    <div class="px-4 name block min-w-[100px] min-h-[22px]">
+                        <span v-show="!enableLabelTextarea"
+                              class="bg-gray-800"
+                              :class='{"text-gray-400 italic" : node.label?.length === 0 || node.label == "\n"}'
+                              v-on:dblclick="focusLabelTextarea">
+                            &nbsp;
+                            {{ node.label?.length > 0 && node.label !== '\n' ? node.label : 'Empty' }}
+                            &nbsp;
                         </span>
                         <textarea
                             ref="labelTextarea"
@@ -17,7 +22,7 @@
                             @keyup.enter="handleEnter"
                             @keydown.tab.prevent="handleTab"
                             @keyup="$emit('updateTextarea')"
-                            class="v-textarea bg-gray-800 border border-t-4 border-gray-400 p-1 resize-none ring-0 focus:ring-0 focus:ring-offset-0 focus:outline-none"></textarea>
+                            class="w-full v-textarea bg-gray-800 border border-t-4 border-gray-400 p-1 resize-none ring-0 focus:ring-0 focus:ring-offset-0 focus:outline-none"></textarea>
                     </div>
                     <div class="description pl-6 text-xs text-gray-400 max-w-full">
                         <span v-show="!enableDescriptionTextarea" class="bg-gray-800" v-on:dblclick="focusDescriptionTextarea">
@@ -144,10 +149,6 @@ const focusTextarea = (tx) => {
 }
 
 const focusLabelTextarea = () => {
-
-    setTimeout(() => {
-        console.log(JSON.stringify(node.value.label))
-    }, 1000)
 
     enableLabelTextarea.value = true
     focusTextarea(labelTextarea)
