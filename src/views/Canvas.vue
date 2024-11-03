@@ -5,20 +5,21 @@
 </template>
 <script setup>
 import { ref } from 'vue'
+import { v4 as uuidv4 } from 'uuid'
 import Node from '../components/Node.vue'
 
 const nodes = ref([
     {
-        id: 1,
+        id: uuidv4(),
         label: "Node name 1",
         description: "Node description 1",
         children: [
             {
-                id: 2,
+                id: uuidv4(),
                 label: "Node name 2",
                 children: [
                     {
-                        id: 3,
+                        id: uuidv4(),
                         label: "Node name 3",
                         children: []
                     }
@@ -27,30 +28,30 @@ const nodes = ref([
         ]
     },
     {
-        id: 4,
+        id: uuidv4(),
         label: "Node name 4",
         description: "Node description 4",
         children: []
     },
     {
-        id: 5,
+        id: uuidv4(),
         label: "Node name 5",
         description: "Node description 5",
         children: [
             {
-                id: 22,
+                id: uuidv4(),
                 label: "Node name 22",
                 description: "lalalala lalalala lalalala lalalala lalalala lalalala lalalala lalalala lalalala lalalala lalalala ",
                 children: [
                     {
-                        id: 3,
+                        id: uuidv4(),
                         label: "Node name 3a",
                         children: []
                     }
                 ]
             },
             {
-                id: 2323,
+                id: uuidv4(),
                 label: "Node name 23 Node name 23 Node name 23 Node name 23 Node name 23 Node name 23 Node name 23 Node name 23 Node name 23 Node name 23 Node name 23 Node name 23 Node name 23 ",
                 "description": "Node name 23 Node name 23 Node name 23 Node name 23 Node name 23 Node name 23 Node name 23 Node name 23 Node name 23 Node name 23 Node name 23 Node name 23 Node name 23 Node name 23 Node name 23 Node name 23 Node name 23 Node name 23 Node name 23 Node name 23 Node name 23 Node name 23 Node name 23 Node name 23 Node name 23 Node name 23 Node name 23 Node name 23 Node name 23 Node name 23 Node name 23 ",
                 children: [
@@ -62,7 +63,7 @@ const nodes = ref([
                 ]
             },
             {
-                id: 233,
+                id: uuidv4(),
                 label: "Node name 23",
                 children: [
                     {
@@ -73,7 +74,7 @@ const nodes = ref([
                 ]
             },
             {
-                id: 23,
+                id: uuidv4(),
                 label: "Node name 23",
                 children: [
                     {
@@ -86,7 +87,7 @@ const nodes = ref([
         ]
     },
     {
-        id: 6,
+        id: uuidv4(),
         label: "Node name 6",
         description: "Node description 6",
         children: []

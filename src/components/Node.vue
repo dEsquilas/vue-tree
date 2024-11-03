@@ -14,8 +14,8 @@
                             ref="labelTextarea"
                             v-model="node.label"
                             v-show="enableLabelTextarea"
-                            @keydown.enter="handleEnter"
-                            @keydown="$emit('updateTextarea')"
+                            @keyup.enter="handleEnter"
+                            @keyup="$emit('updateTextarea')"
                             class="v-textarea bg-gray-800 border border-t-4 border-gray-400 p-1 resize-none ring-0 focus:ring-0 focus:ring-offset-0 focus:outline-none"></textarea>
                     </div>
                     <div class="description pl-6 text-xs text-gray-400 max-w-full">
@@ -46,15 +46,22 @@
             </div>
         </div>
         <div class="childrenren flex-grow" v-show="childrenVisibles">
-            <Node @update-textarea="calculatechildrenHeights" ref="children" v-for="children in node.children" :key="children.id" :node="children" />
+            <Node
+                @go-next="handleGoNext"
+                @update-textarea="calculatechildrenHeights"
+                ref="children"
+                v-for="chd in node.children"
+                :key="chd.id"
+                :node="chd" />
         </div>
     </div>
 </template>
 <script setup>
 import { nextTick, ref, onMounted, watch } from 'vue'
+import { v4 as uuidv4 } from 'uuid'
 import Node from '../components/Node.vue'
 
-const $emit = defineEmits(['updateTextarea'])
+const $emit = defineEmits(['goNext', 'updateTextarea'])
 
 const props = defineProps({
     node: {
@@ -71,8 +78,6 @@ const enableLabelTextarea = ref(false)
 const enableDescriptionTextarea = ref(false)
 const labelTextarea = ref(null)
 const descriptionTextarea = ref(null)
-
-
 
 onMounted(() => {
     if (childrenVisibles.value) {
@@ -123,7 +128,7 @@ const calculatechildrenHeights = () => {
 
         childrenHeigth.value -= 8
 
-    }, 10)
+    }, 50)
 
 }
 
@@ -140,8 +145,14 @@ const focusTextarea = (tx) => {
 }
 
 const focusLabelTextarea = () => {
+
+    setTimeout(() => {
+        console.log(JSON.stringify(node.value.label))
+    }, 1000)
+
     enableLabelTextarea.value = true
     focusTextarea(labelTextarea)
+    node.value.label = node.value.label.replace(/\n$/, '')
 }
 
 const focusDescriptionTextarea = () => {
@@ -153,9 +164,60 @@ const handleEnter = () => {
     enableLabelTextarea.value = false
     enableDescriptionTextarea.value = false
     $emit('updateTextarea')
+    $emit('goNext', node.value.id)
 }
 
+const handleGoNext = (nodeId) => {
 
+    const nextNodeId = findNextNode(nodeId)
+
+    if(nextNodeId){
+
+        nextTick(() => {
+            // Encuentra el índice del nodo siguiente
+            const nextNodeIndex = node.value.children.findIndex(child => child.id === nextNodeId);
+            if (nextNodeIndex !== -1 && children.value[nextNodeIndex]) {
+                children.value[nextNodeIndex].focusLabelTextarea()
+            }
+        })
+    } else {
+
+        const newChild = createChild();
+        node.value.children.push(newChild);
+        nextTick(() => {
+            children.value[children.value.length - 1].focusLabelTextarea()
+        })
+    }
+}
+
+const findNextNode = (nodeId) => {
+
+    // find the next node to nodeId, create new if not exists
+    const currentIndex = node.value.children.findIndex((child) => {
+        if (child.id === nodeId) {
+            return child
+        }
+    })
+
+    return node.value.children.length < currentIndex ? node.value.children[currentIndex + 1].id : null
+
+}
+
+const createChild = () => {
+
+    const newChild = {
+        id: uuidv4(),
+        label: "",
+        description: "",
+        children: []
+    }
+
+    return newChild
+}
+
+defineExpose({
+    focusLabelTextarea,
+})
 </script>
 <style>
 .current-node.with-children{
