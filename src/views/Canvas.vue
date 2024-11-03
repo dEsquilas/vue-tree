@@ -1,12 +1,20 @@
 <template>
     <section class="min-h-screen min-w-screen bg-gray-800 p-4">
-        <Node v-for="node in nodes" :key="node.id" :node="node" />
+        <Node
+            @go-next="handleGoNext"
+            ref="children"
+            v-for="node in nodes"
+            :key="node.id"
+            :node="node"
+        />
     </section>
 </template>
 <script setup>
-import { ref } from 'vue'
+import { nextTick, ref } from 'vue'
 import { v4 as uuidv4 } from 'uuid'
 import Node from '../components/Node.vue'
+
+const children = ref([])
 
 const nodes = ref([
     {
@@ -93,5 +101,53 @@ const nodes = ref([
         children: []
     }
 ])
+
+const handleGoNext = (nodeId) => {
+
+    const nextNodeId = findNextNode(nodeId)
+
+    if(nextNodeId){
+
+        nextTick(() => {
+            // Encuentra el índice del nodo siguiente
+            const nextNodeIndex = nodes.value.findIndex(child => child.id === nextNodeId);
+            if (nextNodeIndex !== -1 && children.value[nextNodeIndex]) {
+                children.value[nextNodeIndex].focusLabelTextarea()
+            }
+        })
+
+    } else {
+        const newChild = createChild();
+        nodes.value.push(newChild);
+        nextTick(() => {
+            children.value[children.value.length - 1].focusLabelTextarea()
+        })
+    }
+
+}
+
+const findNextNode = (nodeId) => {
+
+    // find the next node to nodeId, create new if not exists
+    const currentIndex = nodes.value.findIndex((child) => {
+        if (child.id === nodeId) {
+            return child
+        }
+    })
+
+    return nodes.value.length > currentIndex + 1 ? nodes.value[currentIndex + 1].id : null
+
+}
+
+const createChild = () => {
+
+    return {
+        id: uuidv4(),
+        label: "",
+        description: "",
+        children: []
+    }
+}
+
 
 </script>
