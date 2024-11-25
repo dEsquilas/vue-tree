@@ -5,7 +5,13 @@
                 <figure class="min-w-[11px] min-h-[24px]">
                     <img class="mt-[7px]" src="@/assets/img/arrow.webp" alt="" />
                 </figure>
-                <div class="node-content block">
+                <div class="node-content block cursor-pointer"
+                     :class="{
+                        'border': node.selected
+                     }"
+                     @click="node.selected = !node.selected"
+                     ref="headerNode"
+                    >
                     <div class="px-4 name block min-w-[100px] min-h-[22px]">
                         <span v-show="!enableLabelTextarea"
                               class="bg-gray-800"
@@ -84,6 +90,7 @@ const enableLabelTextarea = ref(false)
 const enableDescriptionTextarea = ref(false)
 const labelTextarea = ref(null)
 const descriptionTextarea = ref(null)
+const headerNode = ref(null)
 
 onMounted(() => {
     if (childrenVisibles.value) {
@@ -102,6 +109,11 @@ onMounted(() => {
         if (e.target !== enableLabelTextarea.value) {
             enableLabelTextarea.value = false
         }
+
+        if (e.target.closest(headerNode.value)){
+            node.value.selected = false
+        }
+
         $emit('updateTextarea')
     })
 
@@ -144,6 +156,7 @@ const focusTextarea = (tx) => {
     nextTick(() => {
         tx.value.focus()
         calculatechildrenHeights()
+        node.selected = false
     })
 
 }

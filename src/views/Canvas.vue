@@ -149,5 +149,19 @@ const createChild = () => {
     }
 }
 
+const setDefaultAppRequiredFields = (nodeList) => {
+
+    nodeList.forEach((node) => {
+        node.selected = false
+        if (node.children.length > 0) {
+            setDefaultAppRequiredFields(node.children)
+        }
+    })
+
+}
+
+
+setDefaultAppRequiredFields(nodes.value)
+
 
 </script>
